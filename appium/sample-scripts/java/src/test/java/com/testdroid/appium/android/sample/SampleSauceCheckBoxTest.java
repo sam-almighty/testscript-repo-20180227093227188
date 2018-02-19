@@ -1,17 +1,43 @@
 package com.testdroid.appium.android.sample;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import io.appium.java_client.android.AndroidDriver;
-import java.net.URL;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class SampleSauceCheckBoxTest {
+import com.testdroid.appium.BaseAndroidTest;
+import com.testdroid.appium.ServerUtil;
+
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+public class SampleSauceCheckBoxTest extends BaseAndroidTest {
 
   public static final String USERNAME = "nostanle";
   public static final String ACCESS_KEY = "5631607a-dccd-4bc2-8f96-50ce1f84058c";
   public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:443/wd/hub";
+  WebDriver driver;
 
-  public static void main(String[] args) throws Exception {
+  @BeforeClass
+  public void setUp() throws Exception {
+
+  }
+
+  @AfterClass
+  public void tearDown() {
+    driver.quit();
+  }
+
+  @Test
+  public void mainPageTest() throws IOException, InterruptedException {
 
     DesiredCapabilities capabilities = new DesiredCapabilities();
     capabilities.setCapability("platformName", "Android");
@@ -22,13 +48,7 @@ public class SampleSauceCheckBoxTest {
     capabilities.setCapability("name", "Java Sample Test");
     capabilities.setCapability("deviceOrientation", "portrait");
     capabilities.setCapability("appiumVersion", "1.5.3");
-
-    WebDriver driver = new AndroidDriver<>(new URL(URL), capabilities);
-
-    /**
-     * Test Actions here...
-     */
-
-    driver.quit();
+    driver = new AndroidDriver<>(new URL(URL), capabilities);
   }
+
 }
